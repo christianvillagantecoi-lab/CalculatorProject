@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+ <!-- AFTER -->
+<title>Calculator-Villagante</title>
+<link rel="icon" type="image/jpeg" href="Villagante.jpg" />
+<link rel="stylesheet" href="calculator.css" />
+  <link rel="stylesheet" href="calculator.css" />
+</head>
+<body>
+
+  <!-- 100% Full Width Header -->
+  <header>
+    <a href="index.html" class="back-btn">
+      &larr; Back to Projects
+    </a>
+
+    <!-- Settings Cabinet Button (Far Right Edge) -->
+    <button class="cabinet-trigger-btn" onclick="openCabinet()">
+      <span>⚙️ Settings Cabinet</span>
+    </button>
+  </header>
+
+  <!-- Cabinet Drawer Overlay Backdrop -->
+  <div class="cabinet-overlay" id="cabinet-overlay" onclick="closeCabinet()"></div>
+
+  <!-- Animated Theme Settings Cabinet Panel -->
+  <aside class="settings-cabinet" id="settings-cabinet">
+    <div class="cabinet-header">
+      <div class="cabinet-title">
+        <span>🗄️ Theme Cabinet</span>
+      </div>
+      <button class="close-cabinet-btn" onclick="closeCabinet()">&times;</button>
+    </div>
+
+    <div class="cabinet-section-label">Select Color Theme Drawer</div>
+
+    <div class="cabinet-drawers-list">
+      
+      <!-- Ocean Blue Drawer -->
+      <div class="theme-drawer-card" id="drawer-blue" onclick="selectThemeDrawer('blue')">
+        <div class="theme-info">
+          <span class="theme-name">Ocean Blue (Default)</span>
+          <div class="theme-preview-swatches">
+            <span class="swatch" style="background: #0f172a"></span>
+            <span class="swatch" style="background: #38bdf8"></span>
+            <span class="swatch" style="background: #0284c7"></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cyberpunk Purple Drawer -->
+      <div class="theme-drawer-card" id="drawer-purple" onclick="selectThemeDrawer('purple')">
+        <div class="theme-info">
+          <span class="theme-name">Cyberpunk Neon</span>
+          <div class="theme-preview-swatches">
+            <span class="swatch" style="background: #180d2a"></span>
+            <span class="swatch" style="background: #c084fc"></span>
+            <span class="swatch" style="background: #9333ea"></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Emerald Green Drawer -->
+      <div class="theme-drawer-card" id="drawer-emerald" onclick="selectThemeDrawer('emerald')">
+        <div class="theme-info">
+          <span class="theme-name">Emerald Mint</span>
+          <div class="theme-preview-swatches">
+            <span class="swatch" style="background: #062c21"></span>
+            <span class="swatch" style="background: #34d399"></span>
+            <span class="swatch" style="background: #059669"></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sunset Orange Drawer -->
+      <div class="theme-drawer-card" id="drawer-sunset" onclick="selectThemeDrawer('sunset')">
+        <div class="theme-info">
+          <span class="theme-name">Sunset Crimson</span>
+          <div class="theme-preview-swatches">
+            <span class="swatch" style="background: #2c120a"></span>
+            <span class="swatch" style="background: #fb923c"></span>
+            <span class="swatch" style="background: #ea580c"></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Light Mode Drawer -->
+      <div class="theme-drawer-card" id="drawer-light" onclick="selectThemeDrawer('light')">
+        <div class="theme-info">
+          <span class="theme-name">Modern Light</span>
+          <div class="theme-preview-swatches">
+            <span class="swatch" style="background: #e2e8f0"></span>
+            <span class="swatch" style="background: #0284c7"></span>
+            <span class="swatch" style="background: #ffffff"></span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </aside>
+
+  <!-- Content Layout Wrapper -->
+  <div class="content-wrapper">
+
+    <!-- LEFT SIDEBAR NAVIGATION PANEL -->
+    <nav class="side-nav">
+      <div class="nav-title">Navigation Rack</div>
+      
+      <div class="nav-item">
+        <button class="nav-dropdown-btn open" onclick="toggleNavDropdown(this)">
+          <span>🧮 Calculators</span>
+          <span class="dropdown-arrow">▼</span>
+        </button>
+        <div class="sub-menu show" id="calc-sub-menu">
+          <button class="sub-menu-btn active" id="btn-sub-sci" onclick="switchNavMode('scientific')">Scientific Calculator</button>
+          <button class="sub-menu-btn" id="btn-sub-alg" onclick="switchNavMode('algebra')">Algebra Generator</button>
+          <button class="sub-menu-btn" id="btn-sub-fut" onclick="switchNavMode('future')">Future Update</button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Main Container -->
+    <main class="app-container">
+      
+      <!-- Tab Controls (Visible in Scientific / Converter Modes) -->
+      <div class="tabs" id="top-tabs">
+        <button class="tab-btn active" id="tab-calc-btn" onclick="switchTab('calculator')">Calculator Tool</button>
+        <button class="tab-btn" id="tab-conv-btn" onclick="switchTab('converter')">Unit Converter</button>
+      </div>
+
+      <!-- SCIENTIFIC CALCULATOR VIEW -->
+      <section id="calculator-view" class="view-section active">
+        <div class="display-box">
+          <div id="prev-op" class="previous-operand"></div>
+          <div id="curr-op" class="current-operand">0</div>
+        </div>
+
+        <div class="calc-grid">
+          <button class="calc-btn sci" onclick="appendFunc('sin')">sin</button>
+          <button class="calc-btn sci" onclick="appendFunc('cos')">cos</button>
+          <button class="calc-btn sci" onclick="appendFunc('tan')">tan</button>
+          <button class="calc-btn" onclick="clearCalculator()">AC</button>
+          <button class="calc-btn" onclick="deleteNumber()">DEL</button>
+
+          <button class="calc-btn sci" onclick="appendFunc('log')">log</button>
+          <button class="calc-btn sci" onclick="appendFunc('ln')">ln</button>
+          <button class="calc-btn sci" onclick="appendFunc('sqrt')">√</button>
+          <button class="calc-btn op" onclick="appendOperator('%')">%</button>
+          <button class="calc-btn op" onclick="appendOperator('/')">÷</button>
+
+          <button class="calc-btn sci" onclick="appendFunc('pow')">x²</button>
+          <button class="calc-btn" onclick="appendNumber('7')">7</button>
+          <button class="calc-btn" onclick="appendNumber('8')">8</button>
+          <button class="calc-btn" onclick="appendNumber('9')">9</button>
+          <button class="calc-btn op" onclick="appendOperator('*')">×</button>
+
+          <button class="calc-btn sci" onclick="appendConstant('pi')">π</button>
+          <button class="calc-btn" onclick="appendNumber('4')">4</button>
+          <button class="calc-btn" onclick="appendNumber('5')">5</button>
+          <button class="calc-btn" onclick="appendNumber('6')">6</button>
+          <button class="calc-btn op" onclick="appendOperator('-')">-</button>
+
+          <button class="calc-btn sci" onclick="appendConstant('e')">e</button>
+          <button class="calc-btn" onclick="appendNumber('1')">1</button>
+          <button class="calc-btn" onclick="appendNumber('2')">2</button>
+          <button class="calc-btn" onclick="appendNumber('3')">3</button>
+          <button class="calc-btn op" onclick="appendOperator('+')">+</button>
+
+          <button class="calc-btn sci" onclick="appendFunc('abs')">|x|</button>
+          <button class="calc-btn span-2" onclick="appendNumber('0')">0</button>
+          <button class="calc-btn" onclick="appendNumber('.')">.</button>
+          <button class="calc-btn op" onclick="computeResult()">=</button>
+        </div>
+      </section>
+
+      <!-- ALGEBRA GENERATOR & CALCULATOR VIEW -->
+      <section id="algebra-view" class="view-section">
+        <div class="algebra-header">Algebra Equation Engine</div>
+
+        <!-- Mode Toggle -->
+        <div class="mode-selector">
+          <button class="mode-btn active" id="mode-solver-btn" onclick="switchAlgebraMode('solver')">Solve Inputted Equation</button>
+          <button class="mode-btn" id="mode-reverse-btn" onclick="switchAlgebraMode('reverse')">Reverse Generator (Given Variable Value)</button>
+        </div>
+
+        <!-- Equation Type Dropdown -->
+        <div class="type-selector">
+          <label style="color: var(--text-muted); font-weight: 600;">Equation Structure:</label>
+          <select id="alg-eq-type" class="alg-select" onchange="renderAlgebraBuilder()">
+            <option value="linear">Linear: a(var) ± b = c</option>
+            <option value="quadratic">Quadratic: a(var)² ± b(var) ± c = 0</option>
+            <option value="rational">Rational: a / (var) ± b = c</option>
+          </select>
+        </div>
+
+        <!-- Interactive Builder Container -->
+        <div class="algebra-builder" id="algebra-builder-container"></div>
+
+        <div class="algebra-actions">
+          <button class="gen-btn secondary" onclick="generateRandomAlgebra()">Generate Random Values</button>
+          <button class="gen-btn" id="alg-action-btn" onclick="executeAlgebraAction()">Solve Equation</button>
+        </div>
+
+        <div class="algebra-result-box">
+          <p style="color: var(--text-muted); font-weight: 600;" id="result-title">Calculated Solution:</p>
+          <div id="algebra-solution" class="result-display">? = ?</div>
+          <div id="algebra-steps" class="step-display"></div>
+        </div>
+      </section>
+
+      <!-- UNIT CONVERTER VIEW -->
+      <section id="converter-view" class="view-section">
+        <div class="converter-group">
+          <div class="form-control">
+            <label for="category">Category</label>
+            <select id="category" onchange="updateUnits()">
+              <option value="length">Length</option>
+              <option value="weight">Weight / Mass</option>
+              <option value="temperature">Temperature</option>
+            </select>
+          </div>
+
+          <div class="form-control">
+            <label for="from-unit">From</label>
+            <select id="from-unit" onchange="convertUnit()"></select>
+            <input type="number" id="from-value" value="1" oninput="convertUnit()" />
+          </div>
+
+          <div class="form-control">
+            <label for="to-unit">To</label>
+            <select id="to-unit" onchange="convertUnit()"></select>
+            <input type="number" id="to-value" readonly />
+          </div>
+        </div>
+      </section>
+
+      <!-- FUTURE UPDATE VIEW -->
+      <section id="future-view" class="view-section">
+        <div class="future-update-container">
+          <h2>Future Update Feature</h2>
+          <p>New tools and functionality will be added here soon.</p>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Side Panel for History -->
+    <aside class="history-panel">
+      <div class="history-header">
+        <span>Recent Calculations</span>
+        <button class="clear-history" onclick="clearHistory()">Clear</button>
+      </div>
+      <ul id="history-list" class="history-list"></ul>
+    </aside>
+
+  </div>
+
+  <!-- Footer -->
+<footer>
+  <div class="profile-card">
+    <div class="profile-avatar">
+      <img src="Villagante.jpg" alt="Christian Villagante" />
+    </div>
+    <div class="profile-info">
+      <h4>Made by Christian Villagante</h4>
+      <p>Frontend Web Developer</p>
+    </div>
+  </div>
+</footer>
+
+  <script src="calculator.js"></script>
+</body>
+</html>
